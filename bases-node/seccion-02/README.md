@@ -44,7 +44,9 @@ Se puede utilizar para
 
 En un proceso de Node tenemos lo siguiente
 
-**Pila de Procesos (CallStack)**
+**Pila de Procesos (CallStack):**Almacena cada linea de mi codigo y proceso
+**Node Apis:** Corren simultaneamente las tareas-Aca almacena comandos  o tareas donde se esperan las ejecuciones
+**Cola de Callbacks** Son todos los procesos que estan listos para ser ejecutados pero espera a que la pila de procesos que corre Node termine.El primero que llega es el primero en ejecutarse
 
 - Ejecuta el proceso main() ejecutando linea a linea el siguiente proceso en la pila:
   - Almacena en la pila el proceso (var,let,object)
@@ -67,7 +69,7 @@ console.log(saludo);
 
 - Ejecuta el proceso main()
   - Almacena en la pila el proceso saludar()
-    - Pasa a la siguiente linea y lo almacena en la pila de procesos let saludo = saludar()
+  - Pasa a la siguiente linea y lo almacena en la pila de procesos let saludo = saludar()
     - Comienza a trabajar con el bloque de condigo de la funcion de saludar()
       - almacena en la pila let mensaje
       - limpia en la pila let mensaje
@@ -89,7 +91,7 @@ En este proceso tenemos tenemos el uso de:
 
 **Node Apis**
 
-**Cola de Callbacks**
+**Cola de Callbacks:**
 
 ```js
 console.log('Inicio de programa'); // 1
@@ -115,8 +117,26 @@ Flujo de Node:
 
 - Crea el main en el CallStack
 - Ejecuta la primera linea console.log('Inicio de programa');la almacena en el callStack y la quita
-- Almacena la funcion en el CallStack
-
+- Almacena la funcion en el CallStack y lo registra pero no lo ejecuta
   setTimeout(() => {
   console.log('Primer Timeout')
   }, 3000)
+- Coloca a setTimeout en Node Api donde espera a que termine el 3 segundo del setTimeout 
+- Luego registra el segundo setTimeout
+- Pasa a la seccion de Node Api donde va a esperar a que terminen los 3 del setTimeout
+- Registra el siguiente setTimeout 
+- Lo envia a la pila de Node Api
+- Para este instante el tiempo del segundo setTimeout ya debera ser ejecutada por que seguramente pasaron los 0 segundos.
+- Manda el segundo setTimeout a la cola de callback
+- Saca a mi main() de la pila de procesos
+- Empieza a resolver la cola de callbacks donde tenemos el segundo setTimeout y el tercer setTimeout.
+- Pasa el segundo setTimeout a la pila de procesos  y lo elimina de la pila de procesos
+- Pasa el tercero setTimeout a la pila de procesos  y lo elimina de la pila de procesos
+- Cuando pasan los 3 segundos node detecta que puede mover mi primer setTimeout a la cola de callback 
+- Como ya se puede ejecutar lo mueve a la pila de procesos 
+- Elimina el setTimeout de mi pila de proceso y termina el proceso
+
+## NODEMON
+
+ Nodemon va a ayudarnos a actualizar los cambios que tengamos en nuestros archivos .Escucha cualquier archivo js o json.
+ Nodemon si detecta un cambio va a reiniciar y volver a ejecutar nuestros archivos.   
