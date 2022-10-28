@@ -1,30 +1,30 @@
-const { crearArchivoTablas } =  require('./helpers/multiplicar')
-/* 
-Vamos a imprimir y grabar la tabla de multiplicar en un archivo de texto en la misma direccion de mi aplicacion.
 
-*/
+const { crearArchivoTablas } = require('./helpers/multiplicar')
+const { yargs } = require('./config/yargs')
+const colors = require("./config/colors");
 
-
-console.clear()
 
 // Argumentos y path donde se ejecuta mi aplicacion de node
 // console.log(process.argv)
 
-// const [,,arg3= 'base=5'] =  process.argv
-// const [,nrbase = 5] = arg3.split('=')
+//process.argv
+// const [, , arg3 = 'base=5'] = process.argv
+// const [, nrbase = 5] = arg3.split('=')
 // console.log(nrbase)
 
-let base: number = 32;
+//Yargs 
+//console.log(process.argv); // node
+//console.log(argv); // yargs
+console.clear()
 
 
-crearArchivoTablas(base)
-    .then((fileName:string) => {
-        console.log('TODO BIEN')
-        console.log(fileName,'creado')
+
+crearArchivoTablas(yargs.b, yargs.l)
+    .then((fileName: string) => {
+        console.log(colors.info(`${fileName} | Archivo creado con exito!`))
     })
-    .catch((error:string) => {
-        console.log('TODO BIEN')
-        console.log(error)
+    .catch((error: string) => {
+        console.log(colors.col.error(error))
     })
 
 
