@@ -18,20 +18,22 @@ const createFile = (file, base) => {
 };
 exports.createFile = createFile;
 // Con async - await
-const crearArchivoTablas = async (base = 5, list = false) => {
+const crearArchivoTablas = async ({ base = 5, list, until = 10 }) => {
     try {
         let salida = '';
-        for (let i = 1; i <= 10; i++) {
-            salida += `${colors.verbose(base)} ${colors.verbose('X')} ${colors.verbose(i)} = ${colors.info(i * base)}\n`;
+        let consoleOut = '';
+        for (let i = 1; i <= until; i++) {
+            salida += `${base} X ${i} = ${i * base}\n`;
+            consoleOut += `${colors.verbose(base)} ${colors.verbose('X')} ${colors.verbose(i)} = ${colors.info(i * base)}\n`;
         }
         // Show list
         if (list) {
             console.log(colors.green('===================='));
             console.log(colors.blue('   TABLA DEL'), colors.blue(base));
             console.log(colors.green('===================='));
-            console.log(salida);
+            console.log(consoleOut);
         }
-        fs.writeFileSync(`tabla-${base}.txt`, salida);
+        fs.writeFileSync(`./outFiles/tabla-${base}.txt`, salida);
         //await createFile(salida,base)
         return `tabla-${base}.txt`;
     }

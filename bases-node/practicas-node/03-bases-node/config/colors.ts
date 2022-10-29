@@ -1,4 +1,4 @@
-const colors = require('colors')
+let colors = require('colors/safe')
 
 export default colors.setTheme({
     silly: 'rainbow',
@@ -15,4 +15,4 @@ export default colors.setTheme({
 
 
 
-module.exports = colors
+module.exports = colors 

@@ -12,12 +12,12 @@ const colors = require("./config/colors");
 //console.log(process.argv); // node
 //console.log(argv); // yargs
 console.clear();
-crearArchivoTablas(yargs.b, yargs.l)
+crearArchivoTablas(yargs)
     .then((fileName) => {
     console.log(colors.info(`${fileName} | Archivo creado con exito!`));
 })
     .catch((error) => {
-    console.log(colors.col.error(error));
+    console.log(colors.error(error));
 });
 // Crear archivo con writeFile
 // fs.writeFile(`tabla-${base}.txt`,salida,(err:string)=>{

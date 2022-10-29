@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const colors = require('colors');
+let colors = require('colors/safe');
 exports.default = colors.setTheme({
     silly: 'rainbow',
     input: 'grey',

@@ -127,3 +127,16 @@ var argv = require('yargs/yargs')(process.argv.slice(2)).option('f', {
 ```
 
 **check(fn,[global=true]):** Verifica si ciertas condiciones son aplicadas. basicamente podemos validar el objeto argv para verificar si todo lo que mandamos como argumento se cumple o no.Lo mas importante es que si no cumple con las condiciones que pogamos no va a ejecutar mi programa.
+
+## Git
+
+Algunos items para prerar mi repositorio en GIT.
+
+**gitignore:** Aca iran los archivos y direcotrios que no me interesan que se suban a nuestro repositorio
+
+- **/outFiles/\*.txt:** Para ignorar todo el contenido de un directorio. En este ejemplo ignoro todos los archivos txt de mi directorio outFiles.Si mi carpeta outFiles no tiene nada adentro y aun asi necesito que si se suba a mi directorio si o si debe de contener aalgun archivo dentro para que se suba la carpeta outFiles.
+
+**node_modules:** Evitar la carpeta node_modules donde se almacenan los modulos de tercero. Si necesito reconstruir mis modulos utilizar npm i.
+
+**git init:** Para inicializar mi repositorio nos pararme en la raiz de mi proyecto.
+**git add:** Commit es una fotografia de como luce mi codigo en ese momento.Se puede utilizar add . para añadir todos mis archivos a mi commit. Se le puede agregar un mensaje tambien con el -m "mi commit".

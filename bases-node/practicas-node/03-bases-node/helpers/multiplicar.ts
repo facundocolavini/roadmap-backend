@@ -1,3 +1,4 @@
+import { Argv } from '../interfaces/yasrgs';
 const fs = require('fs')
 const colors = require("../config/colors");
 /* 
@@ -16,13 +17,15 @@ export const createFile = (file: string, base: number): Promise<string> => {
     })
 }
 // Con async - await
-export const crearArchivoTablas = async (base: number = 5, list: boolean = false) => {
+export const crearArchivoTablas = async ({ base = 5, list, until = 10 }: Argv) => {
 
     try {
         let salida: string = '';
+        let consoleOut: string = '';
 
-        for (let i = 1; i <= 10; i++) {
-            salida += `${colors.verbose(base)} ${colors.verbose('X')} ${colors.verbose(i)} = ${colors.info(i * base)}\n`
+        for (let i = 1; i <= until; i++) {
+            salida += `${base} X ${i} = ${i * base}\n`
+            consoleOut += `${colors.verbose(base)} ${colors.verbose('X')} ${colors.verbose(i)} = ${colors.info(i * base)}\n`
         }
         // Show list
         if (list) {
@@ -30,9 +33,9 @@ export const crearArchivoTablas = async (base: number = 5, list: boolean = false
             console.log(colors.blue('   TABLA DEL'), colors.blue(base))
             console.log(colors.green('===================='));
 
-            console.log(salida)
+            console.log(consoleOut)
         }
-        fs.writeFileSync(`tabla-${base}.txt`, salida)
+        fs.writeFileSync(`./outFiles/tabla-${base}.txt`, salida)
         //await createFile(salida,base)
 
 

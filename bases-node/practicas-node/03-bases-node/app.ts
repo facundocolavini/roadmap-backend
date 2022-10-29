@@ -19,12 +19,12 @@ console.clear()
 
 
 
-crearArchivoTablas(yargs.b, yargs.l)
+crearArchivoTablas(yargs)
     .then((fileName: string) => {
         console.log(colors.info(`${fileName} | Archivo creado con exito!`))
     })
     .catch((error: string) => {
-        console.log(colors.col.error(error))
+        console.log(colors.error(error))
     })
 
 
