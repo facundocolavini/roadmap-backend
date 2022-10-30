@@ -1,6 +1,6 @@
 const colors = require('colors/safe')
 
-export const colorsTheme = colors.setTheme({
+export default colors.setTheme({
     silly: 'rainbow',
     input: 'grey',
     verbose: 'cyan',
@@ -15,6 +15,4 @@ export const colorsTheme = colors.setTheme({
 
 
 
-module.exports = {
-    colorsTheme
-} 
+module.exports = colors 

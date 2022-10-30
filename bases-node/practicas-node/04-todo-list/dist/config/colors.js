@@ -1,6 +1,7 @@
-const colors = require('colors/safe')
-
-export const colorsTheme = colors.setTheme({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const colors = require('colors/safe');
+exports.default = colors.setTheme({
     silly: 'rainbow',
     input: 'grey',
     verbose: 'cyan',
@@ -12,9 +13,4 @@ export const colorsTheme = colors.setTheme({
     debug: 'blue',
     error: 'red'
 });
-
-
-
-module.exports = {
-    colorsTheme
-} 
+module.exports = colors;
