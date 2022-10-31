@@ -1,19 +1,42 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+Object.defineProperty(exports, "__esModule", { value: true });
+const helpers_1 = require("./helpers");
+const models_1 = require("./models");
+const main = async () => {
+    let opt = '';
+    const tasks = new models_1.Tasks();
+    // Leer DB
+    const tasksInDB = (0, helpers_1.readInDB)();
+    if (tasksInDB) { // Chequea que existan las tareas
+        //Establece las tareas
+        tasks.readTasks(tasksInDB);
+    }
+    do {
+        // Imprimir el menu 
+        opt = await (0, helpers_1.inquirerMenu)();
+        // console.log({ opt });
+        switch (opt) {
+            case '1':
+                //crear
+                const description = await (0, helpers_1.readInput)('Descripción: ');
+                tasks.createTask(description);
+                break;
+            case '2':
+                // listar tareas
+                tasks.listAllTasks();
+                break;
+            case '3':
+                // listar tareas completadas
+                tasks.listPendingAndCompletedTasks();
+                break;
+            case '4':
+                // listar tareas pendientes
+                tasks.listPendingAndCompletedTasks(false);
+                break;
+        }
+        // guardar data en db
+        (0, helpers_1.saveInDB)(tasks.listTasksArr);
+        await (0, helpers_1.pause)();
+    } while (opt !== '0');
 };
-require('colors');
-const { showMenu, pause } = require('./helpers/messages');
-console.clear();
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Hola Mundo');
-    showMenu();
-    pause();
-});
 main();

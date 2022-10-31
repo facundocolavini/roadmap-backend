@@ -29,3 +29,8 @@ const readLine = require('readline').createInterface({
 **question:** Lo ocupamops si necesitamos el stdout para mostrar al usuario informacion por consola.
 **stdin:** Podemos recibir una informacion del usuario que ingrese via teclado.
 **stdout:** Envia informacion del usuario desde la consola.
+`
+
+## Paquete Inquirer
+
+Es un paquete que nos va a ayudar armar menus interactivos para mis aplicaciones de consolas.

@@ -14,9 +14,12 @@
 	"license": "MIT",
 	"dependencies": {
 		"colors": "^1.4.0",
+		"inquirer": "^8.0.0",
+		"uuid": "^9.0.0",
 		"yargs": "^17.6.0"
 	},
 	"devDependencies": {
+		"@types/inquirer": "^9.0.2",
 		"@types/node": "^18.11.8"
 	}
 }
