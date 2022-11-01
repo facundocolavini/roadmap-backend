@@ -114,8 +114,13 @@ const showCheckList = async (tasksArr) => {
         return {
             value: task.id,
             name: `${colors_1.default.green(idx + '.')} ${task.description}`,
-            checked: (task.completedDate ? true : false),
+            checked: true,
         };
+    });
+    //Añado al final de mi array
+    choices.unshift({
+        value: '0',
+        name: `${colors_1.default.green('0.')} Cancelar`, checked: false
     });
     const questions = [
         {

@@ -114,19 +114,20 @@ const showCheckList = async (tasksArr) => {
         return {
             value: task.id,
             name: `${colors_1.default.green(idx + '.')} ${task.description}`,
-            checked: (task.completedDate ? true : false),
+            checked: true,
         };
     });
+    //Añado al final de mi array
     const questions = [
         {
-            type: 'checkbox',
-            name: 'ids',
-            message: 'Selecciones',
+            type: 'list',
+            name: 'id',
+            message: 'Borrar',
             choices: choices
         }
     ];
-    const { ids } = await inquirer_1.default.prompt(questions);
-    return ids;
+    const { id } = await inquirer_1.default.prompt(questions);
+    return id;
 };
 exports.showCheckList = showCheckList;
 const confirmAction = async (message) => {
@@ -146,6 +147,5 @@ module.exports = {
     pause: exports.pause,
     readInput: exports.readInput,
     listDeleteTasks: exports.listDeleteTasks,
-    confirmAction: exports.confirmAction,
-    showCheckList: exports.showCheckList
+    confirmAction: exports.confirmAction
 };

@@ -3,9 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const colors_1 = __importDefault(require("./config/colors"));
 const helpers_1 = require("./helpers");
 const models_1 = require("./models");
+const colors_1 = __importDefault(require("./config/colors"));
+const inquirer_20221101095902_1 = require("../../../../.history/roadmap-backend/bases-node/practicas-node/04-todo-list/helpers/inquirer_20221101095902");
 const main = async () => {
     let opt = '';
     const tasks = new models_1.Tasks();
@@ -39,8 +40,8 @@ const main = async () => {
                 break;
             case '5':
                 //Check list completado o pendiente
-                const ids = await (0, helpers_1.showCheckList)(tasks.listTasksArr);
-                tasks.toggleCompleteTask(ids);
+                const { ids } = await (0, inquirer_20221101095902_1.showCheckList)(tasks.listTasksArr);
+                console.log(ids);
                 break;
             case '6':
                 // borrar tareas

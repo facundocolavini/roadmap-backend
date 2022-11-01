@@ -5,12 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tasks = void 0;
 const colors_1 = __importDefault(require("../config/colors"));
+const formatDate_1 = require("../helpers/formatDate");
 const task_1 = require("./task");
 const { v4: uuidv4 } = require('uuid');
 class Tasks {
     tasksList;
     constructor() {
         this.tasksList = {};
+    }
+    deleteTask(id = '') {
+        if (this.tasksList[id]) {
+            delete this.tasksList[id];
+        }
     }
     //Getters and Setters
     //Paso de un objeto a un array para mostrar mis tareas
@@ -91,6 +97,20 @@ class Tasks {
                     contador += 1;
                     console.log(`${colors_1.default.green(contador.toString() + '.')} ${description} :: ${state}`);
                 }
+            }
+        });
+    }
+    toggleCompleteTask(ids = []) {
+        ids.forEach(id => {
+            const task = this.tasksList[id];
+            if (!task.completedDate) {
+                task.completedDate = `${colors_1.default.green((0, formatDate_1.formatTodayDate)())}`;
+            }
+        });
+        this.listTasksArr.map(task => {
+            if (!ids.includes(task.id)) { // Filtra las tareas de completadas a pendientes
+                this.tasksList[task.id];
+                task.completedDate = null;
             }
         });
     }

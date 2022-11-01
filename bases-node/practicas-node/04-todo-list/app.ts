@@ -1,6 +1,6 @@
-import { inquirerMenu, pause, readInput, saveInDB, readInDB } from './helpers'
+import colors from './config/colors';
+import { confirmAction, inquirerMenu, listDeleteTasks, pause, readInDB, readInput, saveInDB, showCheckList } from './helpers';
 import { Tasks } from './models';
-import { Task as TaskInt } from './interfaces/tasks';
 
 
 const main = async () => {
@@ -41,6 +41,25 @@ const main = async () => {
             case '4':
                 // listar tareas pendientes
                 tasks.listPendingAndCompletedTasks(false);
+                break;
+            
+                case '5':
+                    //Check list completado o pendiente
+                    const ids  = await showCheckList(tasks.listTasksArr)
+                    tasks.toggleCompleteTask(ids);
+                    break;
+            case '6':
+                // borrar tareas
+                const id = await listDeleteTasks(tasks.listTasksArr)
+                if( id !== '0' ){
+                    const ok = await confirmAction('¿Estas seguro que desea borrarla?')
+                    if(ok) {
+                        tasks.deleteTask(id);
+                        console.log(colors.green('\nTarea Eliminada\n'));
+                    }
+                    
+                }
+
                 break;
         }
 

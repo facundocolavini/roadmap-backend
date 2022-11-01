@@ -1,5 +1,6 @@
 import colors from '../config/colors';
 import { listTasksConsole } from '../helpers';
+import { formatTodayDate } from '../helpers/formatDate';
 import { TaskList, Task as TaskInt } from '../interfaces/tasks';
 import { Task } from './task';
 const { v4: uuidv4 } = require('uuid');
@@ -13,6 +14,11 @@ export class Tasks {
         this.tasksList = {}
     }
 
+    deleteTask(id:string =''){
+        if(this.tasksList[id]){
+            delete this.tasksList[id]
+        }
+    }
     //Getters and Setters
 
     //Paso de un objeto a un array para mostrar mis tareas
@@ -114,7 +120,23 @@ export class Tasks {
             }
 
         })
+    }
+    
+    toggleCompleteTask(ids:string[] = []){
+        ids.forEach(id =>{
+            const task = this.tasksList[id];
+           
+            if(!task.completedDate){
+                task.completedDate = `${colors.green(formatTodayDate())}`
+            }
+        })
 
+        this.listTasksArr.map(task =>{
+            if(!ids.includes(task.id)){// Filtra las tareas de completadas a pendientes
+                this.tasksList[task.id];
+                task.completedDate = null;
+            }
+        })
     }
 }
 
