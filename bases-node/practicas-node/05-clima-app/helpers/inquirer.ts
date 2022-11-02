@@ -1,18 +1,18 @@
 import inquirer from 'inquirer';
 import colors from '../config/colors';
-import { Task } from '../interfaces/tasks';
+import { City } from '../interfaces/city';
 
 interface Choices {
-    value: number,
+    value: number | string,
     name: string,
-    checked?:boolean
+    checked?: boolean
 }
 
 interface menuItem {
     type: string;
     name: string;
     message?: string;
-    choices?:Choices[];
+    choices?: Choices[];
 }
 
 const questionsMenu: menuItem[] = [
@@ -33,7 +33,7 @@ const questionsMenu: menuItem[] = [
                 value: 0,
                 name: `${colors.green('0.')} Salir`
             },
-        ] 
+        ]
     }
 ]
 
@@ -76,41 +76,44 @@ export const readInput = async (msg: string): Promise<string> => {
             }
         }
     ]
-    
+
 
     const { description } = await inquirer.prompt(question);
 
     return description;
 }
-/* 
-// Menu de tareas a eliminar devuelve el id 
-export const listDeleteTasks = async(tasksArr: Task[]) => {
-    const choices: menuItem[] = tasksArr.map((task,i) => {
-        const idx:number = i + 1;
+
+//Listado de Ciudades 
+export const listCitys = async (cityArr: City[]): Promise<string> => {
+    const choices: Choices[] = cityArr.map((city, i) => {
+        const idx: number = i + 1;
         return {
-            value: parseInt(task.id),
-            name: `${colors.green(idx + '.')} ${task.description}`
+            value: city.id, // no puedo unsar el place.id por que es de tipo string y romperia con mi interface choices
+            name: `${colors.green(idx + '.')} ${city.name}`
         }
     })
 
     //Añado al final de mi array
     choices.unshift({
         value: 0,
-        name:  `${colors.green('0.')} Cancelar`
+        name: `${colors.green('0.')} Cancelar`
     })
 
-    const questions:menuItem[] = [
-        { 
+    const questions: menuItem[] = [
+        {
             type: 'list',
             name: 'id',
-            message: 'Borrar',
-            choices :choices
+            message: 'Seleccione lugar:',
+            choices: choices
         }
     ];
     const { id } = await inquirer.prompt(questions);
- 
+
     return id;
 }
+/* 
+// Menu de tareas a eliminar devuelve el id 
+
 
 export const showCheckList = async(tasksArr: Task[]) => {
     const choices = tasksArr.map((task,i) => {
@@ -136,10 +139,10 @@ export const showCheckList = async(tasksArr: Task[]) => {
     return ids;
 } */
 
-export const confirmAction = async (message:string): Promise<boolean> => {
+export const confirmAction = async (message: string): Promise<boolean> => {
 
-    const questions:menuItem[] = [
-        { 
+    const questions: menuItem[] = [
+        {
             type: 'confirm',
             name: 'ok',
             message: message,
@@ -155,6 +158,7 @@ module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    confirmAction
-   
+    confirmAction,
+    listCitys
+
 }
