@@ -3,12 +3,13 @@ import axios from 'axios';
 import { City, CityResp, ClimateCityWeather, ResClimateCity, Weather, WeatherParamsClimate } from '../interfaces/city';
 
 export class Searchs {
+
     public history: Array<string> = [];
     private readonly dbPath = './db/database.json';
+
     constructor() {
         // TODO: Leer DB si existe
         this.readDB()
-
     }
 
     //Getters
@@ -26,7 +27,16 @@ export class Searchs {
         }
     }
 
-    async searchCity(place: string = ''):Promise<City[]> {// Es asyncrono por que se conecta a una db o pega a una api externa o algo externo
+    get historyCapitalization() {
+        return this.history.map((place: string) => {
+            let str = place.split(' ');
+            str = str.map(p => p[0].toUpperCase() + p.substring(1))
+
+            return str.join(' ');
+
+        })
+    }
+    async searchCity(place: string = ''): Promise<City[]> {// Es asyncrono por que se conecta a una db o pega a una api externa o algo externo
 
         const URL: string = `https://api.mapbox.com/geocoding/v5/mapbox.places`;
         const SEARCH_STRING = `/${place}.json`;
@@ -70,78 +80,79 @@ export class Searchs {
             })
             // Forma de fernando
             const resp = await instance.get(`?lat=${lat}&lon=${lng}&lang=${lang}&units=metric`);
-            const  { main, weather } = resp?.data;
+            const { main, weather } = resp?.data;
 
             return {
                 descr: weather[0]?.description,
                 temp: main?.temp,
                 temp_min: main?.temp_min,
                 temp_max: main?.temp_max
-            }  as ResClimateCity
+            } as ResClimateCity
             // MI forma
-/*             const resp = await instance.get(`?lat=${lat}&lon=${lng}&lang=${lang}&units=metric`);
-            const respTemp = [(resp.data.main)].find((p) => {
+            /*             const resp = await instance.get(`?lat=${lat}&lon=${lng}&lang=${lang}&units=metric`);
+                        const respTemp = [(resp.data.main)].find((p) => {
+                        
+                           return {
+                                temp: p.main?.temp,
+                                temp_min: p.main?.temp_min,
+                                temp_max: p.main?.temp_max,
+                                // descr: p.weather[0]?.description
+                            } 
             
-               return {
-                    temp: p.main?.temp,
-                    temp_min: p.main?.temp_min,
-                    temp_max: p.main?.temp_max,
-                    // descr: p.weather[0]?.description
-                } 
-
-            })
-
-            const respWeather = resp?.data.weather?.find((w: Weather) => {
-                
-                return {
-
-                     descr: w?.description
-                 } 
- 
-            })
-
-
-           return {
-                ...respTemp,
-                descr: respWeather?.description
-           } 
- */
+                        })
+            
+                        const respWeather = resp?.data.weather?.find((w: Weather) => {
+                            
+                            return {
+            
+                                 descr: w?.description
+                             } 
+             
+                        })
+            
+            
+                       return {
+                            ...respTemp,
+                            descr: respWeather?.description
+                       } 
+             */
         } catch (error) {
             console.log(error);
             return [] as any
 
         }
     }
-    
-    addToHistorial(place:string = ''){
-        // Grabar los buscados
-        if(this.history.includes(place.toLocaleLowerCase()))return;
 
-        this.history.unshift(place)
+    addToHistorial(place: string = '') {
+        // Grabar los buscados
+        if (this.history.includes(place.toLocaleLowerCase())) return;
+        this.history = this.history.splice(0, 5);
+        this.history.unshift(place.toLocaleLowerCase())
         this.saveInDb()
         //Prevenir duplicado       
     }
 
-    saveInDb(){
+    saveInDb() {
         const payload = {
-            history:this.history
+            history: [...this.history]
+
         }
 
         fs.writeFileSync(this.dbPath, JSON.stringify(payload))
     }
 
-    readDB(){
-       
+    readDB() {
+
         if (!fs.existsSync(this.dbPath)) { // Si mi db existe
             return null;
         }
-    
+
         const dataString = fs.readFileSync(this.dbPath, { encoding: 'utf-8' })//Encoding para que no me regrese los bytes
         // Parsea de string a mi array 
-        const dataArray = JSON.parse(dataString);
-        
-        return dataArray;
-        
+        const historyInDB = JSON.parse(dataString);
+
+        this.history = [...historyInDB.history]
+
     }
 
     readCitysOnDB(arrCitys = []) {

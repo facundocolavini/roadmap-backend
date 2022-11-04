@@ -21,19 +21,19 @@ const main = async () => {
                 let searchPlaces: City[] = await searchs.searchCity(place);
                 // Seleccione  el lugar
                 let idPlaceSelected = await listCitys(searchPlaces);
-                if( idPlaceSelected === '0') continue;
+                if (idPlaceSelected === '0') continue;
 
 
                 let placeSelected: City | undefined = searchPlaces?.find(p => (p?.id === idPlaceSelected))
 
                 // Obtener temperatura del lugar
-                if(placeSelected !== undefined){
+                if (placeSelected !== undefined) {
                     const { lat, lng, name } = placeSelected;
                     // Guardar en DB
-                    searchs.addToHistorial(name)  
-                    let { temp, temp_min, temp_max , descr } = await searchs.getClimateCity(placeSelected);
+                    searchs.addToHistorial(name)
+                    let { temp, temp_min, temp_max, descr } = await searchs.getClimateCity(placeSelected);
                     // console.log(await searchs.getClimateCity(placeSelected))
-    
+
                     // Mostrar resultados 
                     console.log(colors.green(`\nInformaión de la ciudad:\n`));
                     console.log(colors.green(`Ciudad: ${colors.warn(name)}`));
@@ -49,10 +49,12 @@ const main = async () => {
 
             case 2:
                 console.log(colors.green('\nHistorial de busqueda\n'));
-                searchs.history.forEach((place,i)=>{    
+                searchs.historyCapitalization.forEach((place, i) => {
                     const idx = i + 1;
                     console.log(`${colors.green(idx)}. ${place}`)
                 })
+
+
                 break;
         }
         if (opt !== 0) await pause();
