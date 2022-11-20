@@ -7,8 +7,11 @@ export const usersGet = (req: Request, res: Response) => {
 }
 
 export const userPost = (req: Request, res: Response) => {
+    const { name, age } = req.body // Informacion que nos envia el cliente en el body
     res.json({
-        msg: 'POST API - Controlador [userPost]'
+        msg: 'POST API - Controlador [userPost]',
+        name,
+        age
     });
 }
 

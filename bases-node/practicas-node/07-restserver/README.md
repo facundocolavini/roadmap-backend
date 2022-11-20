@@ -116,3 +116,11 @@ Dentro de routes hacemos nuestros archivos de rutas donde vamos a manejar cada p
 
 En controller controlamos las funciones de nuestras routes.Para esto creamos una nueva carpeta controllers y creamos nuestros controladores.
 En estos archivos creamos funciones de nuestras peticiones y las exportamos.
+
+## POST PUT DELETE
+
+Usualmente en estas peticiones podemos mandar un body en la peticion.
+Podemos enviar un json valido dentro de ese body.
+Nos vamos a comunicar en tipo json
+
+express.json() Serealiza la informacion que le mandamos atravez del body y lo pasa a formato json.

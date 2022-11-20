@@ -32,6 +32,8 @@ export class Server {
         // CORS
         this.app.use(cors())
 
+        // Parseo la lectura del body  a json
+        this.app.use(express.json())
         // Le dice a express donde esta mi carpeta public para que pueda utilizar su contenido public tanto css como html como cualquier cosa.
         this.app.use(express.static('public'))
 
