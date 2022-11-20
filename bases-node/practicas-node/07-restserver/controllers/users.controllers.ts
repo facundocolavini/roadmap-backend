@@ -16,8 +16,20 @@ export const userPost = (req: Request, res: Response) => {
 }
 
 export const userPut = (req: Request, res: Response) => {
+    // Obtenemos los parametros
+    const { id } = req.params;
+    // Para obtener en la respuesta los query params
+    const { name = 'No name', email } = req.query
+
+    if (!id) {
+        res.status(404).send({
+            msg: 'Id NOT FOUND'
+        })
+    }
     res.json({
-        msg: 'PUT API - Controlador [userPut]'
+        msg: 'PUT API - Controlador [userPut]',
+        id,
+        name
     });
 }
 
