@@ -1,8 +1,8 @@
 import express, { Response, Request } from 'express';
-import { dbConnection } from '../database/config';
+import { dbConnection } from './database/config';
 
 const cors = require('cors')
-
+const routeUser = require('./user/routes/user')
 /* 
  Server Express With Class 
 
@@ -43,7 +43,7 @@ export class Server {
         // CORS
         this.app.use(cors())
 
-        // Parseo la lectura del body  a json
+        // Parseo la lectura del body a json
         this.app.use(express.json())
         // Le dice a express donde esta mi carpeta public para que pueda utilizar su contenido public tanto css como html como cualquier cosa.
         this.app.use(express.static('public'))
@@ -53,7 +53,7 @@ export class Server {
     routes() {
         // Separar las rutas y el controlador de la clase
         // User Routes Middlleware condicional
-        this.app.use(this.usersPath, require('../routes/user'))
+        this.app.use(this.usersPath, routeUser)
     }
 
     listen() {

@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 /* Importaciones Propias o locales */
-const { Server } = require('./models/server');
+const { Server } = require('./server');
 
 
 /* Importaciones de variables */
