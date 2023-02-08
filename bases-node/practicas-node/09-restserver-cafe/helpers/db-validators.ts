@@ -4,7 +4,8 @@ import { User } from "../user/models/user.model";
 
 /* 
 * Validaciones customizadas
- */
+* 
+*/
 export const roleValidate = async(rol = '') => {
     const existRol = await Rol.findOne({rol});
     if(!existRol) {
