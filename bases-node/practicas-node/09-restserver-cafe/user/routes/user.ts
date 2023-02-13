@@ -36,5 +36,4 @@ router.delete('/:id',[
     validateFields
 ], userDelete)
 
-
 module.exports = router

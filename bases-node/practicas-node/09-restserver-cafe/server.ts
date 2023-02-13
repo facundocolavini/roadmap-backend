@@ -3,6 +3,7 @@ import { dbConnection } from './database/config';
 
 const cors = require('cors')
 const routeUser = require('./user/routes/user')
+const routeAuth = require('./auth/routes/auth')
 /* 
  Server Express With Class 
 
@@ -16,12 +17,14 @@ export class Server {
     private app;
     public port;
     public usersPath: string;
+    public authPath: string;
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        // API USERS Path
+        // Paths Routes
         this.usersPath = '/api/users';
+        this.authPath = '/api/auth';
 
         // Conectar a la base de datos 
         this.connectDb();
@@ -54,6 +57,7 @@ export class Server {
         // Separar las rutas y el controlador de la clase
         // User Routes Middlleware condicional
         this.app.use(this.usersPath, routeUser)
+        this.app.use(this.authPath, routeAuth)
     }
 
     listen() {
