@@ -1,5 +1,5 @@
-import { Rol } from "../rols/models/rol.model";
-import { User } from "../user/models/user.model";
+import { Rol } from "../models/rol.model";
+import { User } from "../models/user.model";
 
 
 /* 

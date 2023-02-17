@@ -1,8 +1,8 @@
 const { Router } = require('express');
 import { check } from 'express-validator';
 
-import { validateFields } from '../../middlewares';
-import { roleValidate,emailExist,userExistById } from '../../helpers/db-validators';
+import { validateFields } from '../middlewares';
+import { roleValidate,emailExist,userExistById } from '../helpers/db-validators';
 
 import { userDelete, userGet, userPost, userPut } from '../controller';
 
