@@ -2,7 +2,7 @@ import express, { Response, Request } from 'express';
 import { dbConnection } from './database/config';
 
 const cors = require('cors')
-const routeUser = require('./user/routes/user')
+const routeUser = require('./routes/user')
 const routeAuth = require('./auth/routes/auth')
 /* 
  Server Express With Class 

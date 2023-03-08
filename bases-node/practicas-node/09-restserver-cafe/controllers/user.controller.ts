@@ -1,5 +1,6 @@
 const bcryptjs = require("bcryptjs");
 import { Request, Response } from "express";
+import { UserRequest } from "../interface/user";
 
 import { User } from '../models/user.model';
 
@@ -69,17 +70,17 @@ export const userPut = async(req: Request, res: Response) => {
     });
 }
 
-export const userDelete = async(req: Request, res: Response) => {
+export const userDelete = async(req: UserRequest & Request, res: Response) => {
     const { id } = req.params;
-
     // Fisicamente lo borramos
     // const user = await User.findByIdAndDelete(id)
 
     // Eliminar pero sin eliminar fisicamente el usuario sino cambiamos su estado 
-    const user = await User.findByIdAndUpdate(id,{state:false})
+    const userDeleted = await User.findByIdAndUpdate(id,{state:false})
+
     res.json({
         msg: 'User Deleted',
-        user
+        userDeleted 
     });
 }
 

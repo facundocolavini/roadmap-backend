@@ -1,7 +1,12 @@
 import  { Schema, model } from 'mongoose';
+import { ROL_KEYS } from '../enums/rol_keys';
 
 
 const UserSchema =  new Schema({
+    uid: {
+        type: String,
+        unique: true,
+    },
     name: {
         type: String,
         required: [true, 'El nombre es obligatorio']
@@ -21,7 +26,7 @@ const UserSchema =  new Schema({
     rol: {
         type: String,
         required: true,
-        emun: ['ADMIN_ROLE', 'USER_ROLE']
+        emun: [ROL_KEYS]
     },
     state: {
         type: Boolean,
@@ -44,8 +49,11 @@ const UserSchema =  new Schema({
 // Sobreescribimos el metodo toJson debe ser una funcion normal por el this.
 // Por que hace a la referencia creada de mi funcion.
 UserSchema.methods.toJSON = function() {
-    const { __v, password, ...user  } = this.toObject();// Objeto de con las propiedades de mi modelo
-    return user;
+    const { __v,_id, password, ...user  } = this.toObject();// Objeto con las propiedades de mi modelo
+    return {
+        uid: _id,
+        ...user,
+    };
 }
 
 export const User = model( 'User', UserSchema );

@@ -1,10 +1,17 @@
 const { Router } = require('express');
 import { check } from 'express-validator';
 
-import { validateFields } from '../middlewares';
+import { 
+    validateFields,
+    validateJWT,
+    hasRole,
+    isAdmin
+ } from '../middlewares';
 import { roleValidate,emailExist,userExistById } from '../helpers/db-validators';
 
-import { userDelete, userGet, userPost, userPut } from '../controller';
+import { userDelete, userGet, userPost, userPut } from '../controllers';
+
+import { ROL_KEYS } from '../enums';
 
 const router = Router();
 
@@ -31,6 +38,9 @@ router.post('/',[
 , userPost)
 
 router.delete('/:id',[
+    validateJWT,
+    hasRole('SALE_ROL'),
+    /* isAdmin, */
     check('id', 'Its not a valid id').isMongoId(),
     check('id').custom(userExistById),
     validateFields

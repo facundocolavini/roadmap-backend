@@ -74,3 +74,6 @@ les exp =  new Date();
 
 exp.setTime( fechadeExpiracion * 1000)
 
+Paquetes que generan json web tokens
+
+npm i jsonwebtoken 
